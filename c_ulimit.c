@@ -17,9 +17,9 @@
 	the extended 4.nBSD resource limits.  It now includes the code
 	that was originally under case SYSULIMIT in source file "xec.c".
 */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: c_ulimit.c,v 1.9 2008/09/14 05:00:23 sjg Exp $");
 #endif
 
@@ -122,7 +122,7 @@ c_ulimit(wp)
 #ifdef RLIMIT_SBSIZE
 		{ "sbsize(bytes)", RLIMIT, RLIMIT_SBSIZE, RLIMIT_SBSIZE, 1, 'b' },
 #endif
-		{ .name = NULL }
+		{  NULL }
 	    };
 	static char	options[3 + NELEM(limits)];
 	rlim_t		UNINITIALIZED(val);

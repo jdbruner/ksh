@@ -4,8 +4,6 @@
  * Source input, lexer and parser
  */
 
-/* $Id: lex.h,v 1.7 2005/09/11 22:16:00 christos Exp $ */
-
 #define	IDENT	64
 
 typedef struct source Source;

@@ -12,15 +12,15 @@
     QUIT   Quit
     ILL    Illegal instruction
     TRAP   Trace trap
-# before IOT (ABRT is posix and ABRT is sometimes the same as IOT)
-    ABRT   Abort
+# ABRT after IOT (ABRT is posix and IOT is PDP-11)
     IOT    IOT instruction
+    ABRT   Abort
     EMT    EMT trap
     FPE    Floating point exception
     KILL   Killed
-# before BUS (linux doesn't really have a BUS, but defines it to UNUSED)
-    UNUSED Unused
+# after BUS (linux doesn't really have a BUS, but PDP-11 does)
     BUS    Bus error
+    UNUSED Unused
     SEGV   Memory fault
     SYS    Bad system call
     PIPE   Broken pipe

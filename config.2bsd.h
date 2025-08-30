@@ -1,9 +1,8 @@
 /*	$NetBSD: config.h,v 1.8 2004/08/19 23:00:22 christos Exp $	*/
 
-/* config.h.  Generated automatically by configure.  */
-/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+/* config.h - manually edited */
 /*
- * This file, acconfig.h, which is a part of pdksh (the public domain ksh),
+ * This file, config.h, which is a part of pdksh (the public domain ksh),
  * is placed in the public domain.  It comes with no licence, warranty
  * or guarantee of any kind (i.e., at your own risk).
  */
@@ -27,14 +26,17 @@
 /* Define to `int' if <sys/types.h> doesn't define.  */
 /* #undef gid_t */
 
+/* Define to `int' if <sys/types.h> doesn't define. */
+/* #undef bool_t */
+
 /* Define if you have a working `mmap' system call.  */
-#define HAVE_MMAP 1
+/* #undef HAVE_MMAP */
 
 /* Define if your struct stat has st_rdev.  */
 #define HAVE_ST_RDEV 1
 
 /* Define if you have <sys/wait.h> that is POSIX.1 compatible.  */
-#define HAVE_SYS_WAIT_H 1
+/* #undef HAVE_SYS_WAIT_H */
 
 /* Define if you have <unistd.h>.  */
 #define HAVE_UNISTD_H 1
@@ -59,7 +61,7 @@
 /* #undef _POSIX_SOURCE */
 
 /* Define as the return type of signal handlers (int or void).  */
-#define RETSIGTYPE void
+#define RETSIGTYPE int
 
 /* Define if the `S_IS*' macros in <sys/stat.h> do not work properly.  */
 /* #undef STAT_MACROS_BROKEN */
@@ -68,7 +70,7 @@
 #define SYS_SIGLIST_DECLARED 1
 
 /* Define if you can safely include both <sys/time.h> and <time.h>.  */
-#define TIME_WITH_SYS_TIME 1
+/* #undef TIME_WITH_SYS_TIME */
 
 /* Define to `int' if <sys/types.h> doesn't define.  */
 /* #undef uid_t */
@@ -77,7 +79,7 @@
 /* #undef VOID_CLOSEDIR */
 
 /* Define if your kernel doesn't handle scripts starting with #! */
-/* #undef SHARPBANG */
+#define SHARPBANG 1
 
 /* Define if dup2() preserves the close-on-exec flag (ultrix does this) */
 /* #undef DUP2_BROKEN */
@@ -86,10 +88,10 @@
 #define RETSIGVAL 
 
 /* Define if you have posix signal routines (sigaction(), et. al.) */
-#define POSIX_SIGNALS 1
+/* #undef POSIX_SIGNALS */
 
 /* Define if you have BSD4.2 signal routines (sigsetmask(), et. al.) */
-/* #undef BSD42_SIGNALS */
+#define BSD42_SIGNALS 1
 
 /* Define if you have BSD4.1 signal routines (sigset(), et. al.) */
 /* #undef BSD41_SIGNALS */
@@ -104,10 +106,10 @@
 /* #undef SIGNALS_DONT_INTERRUPT */
 
 /* Define if you have bsd versions of the setpgrp() and getpgrp() routines */
-/* #undef BSD_PGRP */
+#define BSD_PGRP 1
 
 /* Define if you have POSIX versions of the setpgid() and getpgrp() routines */
-#define POSIX_PGRP 1
+/* #undef POSIX_PGRP */
 
 /* Define if you have sysV versions of the setpgrp() and getpgrp() routines */
 /* #undef SYSV_PGRP */
@@ -125,13 +127,13 @@
 #define HAVE_PROTOTYPES 1
 
 /* Define if C compiler groks __attribute__((...)) (const, noreturn, format) */
-#define HAVE_GCC_FUNC_ATTR 1
+/* #undef HAVE_GCC_FUNC_ATTR */
 
 /* Define to 32-bit signed integer type if <sys/types.h> doesn't define */
-/* #undef clock_t */
+#define clock_t long
 
 /* Define to the type of struct rlimit fields if the rlim_t type is missing */
-/* #undef rlim_t */
+#define rlim_t long
 
 /* Define if time() is declared in <time.h> */
 #define TIME_DECLARED 1
@@ -140,22 +142,22 @@
 /* #undef sigset_t */
 
 /* Define if sys_errlist[] and sys_nerr are in the C library */
-#define HAVE_SYS_ERRLIST 1
+/* #undef HAVE_SYS_ERRLIST */
 
 /* Define if sys_errlist[] and sys_nerr are defined in <errno.h> */
-#define SYS_ERRLIST_DECLARED 1
+/* #undef SYS_ERRLIST_DECLARED */
 
 /* Define if sys_siglist[] is in the C library */
 #define HAVE_SYS_SIGLIST 1
 
 /* Define if you have a sane <termios.h> header file */
-#define HAVE_TERMIOS_H 1
+/* #undef HAVE_TERMIOS_H */
 
 /* Define if you have a memset() function in your C library */
 #define HAVE_MEMSET 1
 
 /* Define if you have a memmove() function in your C library */
-#define HAVE_MEMMOVE 1
+/* #undef HAVE_MEMMOVE */
 
 /* Define if you have a bcopy() function in your C library */
 #define HAVE_BCOPY
@@ -188,16 +190,22 @@
 /* #undef OS2 */
 
 /* Define if you have a POSIX.1 compatible <sys/wait.h> */
-#define POSIX_SYS_WAIT 1
+/* #undef POSIX_SYS_WAIT */
 
 /* Define if your OS maps references to /dev/fd/n to file descriptor n */
 #define HAVE_DEV_FD 1
 
+/* Define if you have BSD strlcpy and strlcat functions */
+/* #undef HAVE_BSD_STRL */
+
+/* Define if you have -lbsd #includes */
+/* #undef HAVE_BSD_H */
+
 /* Default PATH */
 #ifdef RESCUEDIR
-#define DEFAULT_PATH RESCUEDIR ":/bin:/usr/bin:/sbin:/usr/sbin"
+#define DEFAULT_PATH RESCUEDIR ":/bin:/usr/bin:/usr/ucb:/sbin:/usr/sbin"
 #else
-#define DEFAULT_PATH "/bin:/usr/bin:/sbin:/usr/sbin"
+#define DEFAULT_PATH "/bin:/usr/bin:/usr/ucb:/sbin:/usr/sbin"
 #endif
 
 /* Define if your C library's getwd/getcwd function dumps core in unreadable
@@ -226,7 +234,7 @@
 /* #undef COMPLEX_HISTORY */
 
 /* Strict POSIX behaviour? */
-#define POSIXLY_CORRECT 1
+/* #define POSIXLY_CORRECT 1 */
 
 /* Specify default $ENV? */
 #define DEFAULT_ENV	"$HOME/.kshrc"
@@ -238,7 +246,7 @@
 /* #undef SILLY */
 
 /* The number of bytes in a int.  */
-#define SIZEOF_INT 4
+#define SIZEOF_INT 2
 
 /* The number of bytes in a long.  */
 #define SIZEOF_LONG 4
@@ -247,13 +255,13 @@
 #define HAVE__SETJMP
 
 /* Define if you have the confstr function.  */
-#define HAVE_CONFSTR 1
+/* #undef HAVE_CONFSTR */
 
 /* Define if you have the flock function.  */
 #define HAVE_FLOCK 1
 
 /* Define if you have the getcwd function.  */
-#define HAVE_GETCWD 1
+/* #undef HAVE_GETCWD */
 
 /* Define if you have the getgroups function.  */
 #define HAVE_GETGROUPS
@@ -277,7 +285,7 @@
 #define HAVE_SETRLIMIT 1
 
 /* Define if you have the sigsetjmp function.  */
-#define HAVE_SIGSETJMP 1
+/* #undef HAVE_SIGSETJMP */
 
 /* Define if you have the strcasecmp function.  */
 #define HAVE_STRCASECMP 1
@@ -289,13 +297,13 @@
 #define HAVE_STRSTR 1
 
 /* Define if you have the sysconf function.  */
-#define HAVE_SYSCONF 1
+/* #undef HAVE_SYSCONF */
 
 /* Define if you have the tcsetpgrp function.  */
-#define HAVE_TCSETPGRP 1
+/* #undef HAVE_TCSETPGRP */
 
 /* Define if you have the ulimit function.  */
-#define HAVE_ULIMIT
+/* #undef HAVE_ULIMIT */
 
 /* Define if you have the valloc function.  */
 #define HAVE_VALLOC 1
@@ -307,7 +315,7 @@
 #define HAVE_WAITPID 1
 
 /* Define if you have the <dirent.h> header file.  */
-#define HAVE_DIRENT_H 1
+/* #undef HAVE_DIRENT_H */
 
 /* Define if you have the <fcntl.h> header file.  */
 #define HAVE_FCNTL_H 1
@@ -325,7 +333,7 @@
 #define HAVE_PATHS_H 1
 
 /* Define if you have the <stddef.h> header file.  */
-#define HAVE_STDDEF_H 1
+/* #undef HAVE_STDDEF_H */
 
 /* Define if you have the <stdlib.h> header file.  */
 #define HAVE_STDLIB_H 1
@@ -352,10 +360,16 @@
 #define HAVE_SYS_WAIT_H 1
 
 /* Define if you have the <ulimit.h> header file.  */
-#define HAVE_ULIMIT_H
+/* #undef HAVE_ULIMIT_H */
 
 /* Define if you have the <values.h> header file.  */
 /* #undef HAVE_VALUES_H */
+
+/* Define if you have the <locale.h> header file. */
+/* #undef HAVE_LOCALE_H */
+
+/* Define if you have the <sys/cdefs.h> header file. */
+/* #undef HAVE_SYS_CDEFS_H */
 
 /* Need to use a separate file to keep the configure script from commenting
  * out the undefs....

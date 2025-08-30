@@ -3,7 +3,6 @@
 /*
  * Expanding strings
  */
-/* $Id: expand.h,v 1.4 2001/07/26 15:05:07 wiz Exp $ */
 
 #define X_EXTRA		8	/* this many extra bytes in X string */
 

@@ -34,38 +34,38 @@ struct tbl {			/* table item */
 };
 
 /* common flag bits */
-#define	ALLOC		BIT(0)	/* val.s has been allocated */
-#define	DEFINED		BIT(1)	/* is defined in block */
-#define	ISSET		BIT(2)	/* has value, vp->val.[si] */
-#define	EXPORT		BIT(3)	/* exported variable/function */
-#define	TRACE		BIT(4)	/* var: user flagged, func: execution tracing */
+#define	ALLOC		BIT32(0)  /* val.s has been allocated */
+#define	DEFINED		BIT32(1)  /* is defined in block */
+#define	ISSET		BIT32(2)  /* has value, vp->val.[si] */
+#define	EXPORT		BIT32(3)  /* exported variable/function */
+#define	TRACE		BIT32(4)  /* var: user flagged, func: execution tracing */
 /* (start non-common flags at 8) */
 /* flag bits used for variables */
-#define	SPECIAL		BIT(8)	/* PATH, IFS, SECONDS, etc */
-#define	INTEGER		BIT(9)	/* val.i contains integer value */
-#define	RDONLY		BIT(10)	/* read-only variable */
-#define	LOCAL		BIT(11)	/* for local typeset() */
-#define ARRAY		BIT(13)	/* array */
-#define LJUST		BIT(14)	/* left justify */
-#define RJUST		BIT(15)	/* right justify */
-#define ZEROFIL		BIT(16)	/* 0 filled if RJUSTIFY, strip 0s if LJUSTIFY */
-#define LCASEV		BIT(17)	/* convert to lower case */
-#define UCASEV_AL	BIT(18)/* convert to upper case / autoload function */
-#define INT_U		BIT(19)	/* unsigned integer */
-#define INT_L		BIT(20)	/* long integer (no-op) */
-#define IMPORT		BIT(21)	/* flag to typeset(): no arrays, must have = */
-#define LOCAL_COPY	BIT(22)	/* with LOCAL - copy attrs from existing var */
-#define EXPRINEVAL	BIT(23)	/* contents currently being evaluated */
-#define EXPRLVALUE	BIT(24)	/* useable as lvalue (temp flag) */
+#define	SPECIAL		BIT32(8)  /* PATH, IFS, SECONDS, etc */
+#define	INTEGER		BIT32(9)  /* val.i contains integer value */
+#define	RDONLY		BIT32(10) /* read-only variable */
+#define	LOCAL		BIT32(11) /* for local typeset() */
+#define ARRAY		BIT32(13) /* array */
+#define LJUST		BIT32(14) /* left justify */
+#define RJUST		BIT32(15) /* right justify */
+#define ZEROFIL		BIT32(16) /* 0 filled if RJUSTIFY, strip 0s if LJUSTIFY */
+#define LCASEV		BIT32(17) /* convert to lower case */
+#define UCASEV_AL	BIT32(18) /* convert to upper case / autoload function */
+#define INT_U		BIT32(19) /* unsigned integer */
+#define INT_L		BIT32(20) /* long integer (no-op) */
+#define IMPORT		BIT32(21) /* flag to typeset(): no arrays, must have = */
+#define LOCAL_COPY	BIT32(22) /* with LOCAL - copy attrs from existing var */
+#define EXPRINEVAL	BIT32(23) /* contents currently being evaluated */
+#define EXPRLVALUE	BIT32(24) /* useable as lvalue (temp flag) */
 /* flag bits used for taliases/builtins/aliases/keywords/functions */
-#define KEEPASN		BIT(8)	/* keep command assignments (eg, var=x cmd) */
-#define FINUSE		BIT(9)	/* function being executed */
-#define FDELETE		BIT(10)	/* function deleted while it was executing */
-#define FKSH		BIT(11)	/* function defined with function x (vs x()) */
-#define SPEC_BI		BIT(12)	/* a POSIX special builtin */
-#define REG_BI		BIT(13)	/* a POSIX regular builtin */
+#define KEEPASN		BIT32(8)  /* keep command assignments (eg, var=x cmd) */
+#define FINUSE		BIT32(9)  /* function being executed */
+#define FDELETE		BIT32(10) /* function deleted while it was executing */
+#define FKSH		BIT32(11) /* function defined with function x (vs x()) */
+#define SPEC_BI		BIT32(12) /* a POSIX special builtin */
+#define REG_BI		BIT32(13) /* a POSIX regular builtin */
 /* Attributes that can be set by the user (used to decide if an unset param
- * should be repoted by set/typeset).  Does not include ARRAY or LOCAL.
+ * should be reported by set/typeset).  Does not include ARRAY or LOCAL.
  */
 #define USERATTRIB	(EXPORT|INTEGER|RDONLY|LJUST|RJUST|ZEROFIL\
 			 |LCASEV|UCASEV_AL|INT_U|INT_L)

@@ -1,8 +1,8 @@
 /*	$NetBSD: var.c,v 1.14 2006/03/29 15:51:00 christos Exp $	*/
 
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: var.c,v 1.14 2006/03/29 15:51:00 christos Exp $");
 #endif
 
@@ -606,7 +606,7 @@ export(vp, val)
 struct tbl *
 typeset(var, set, clr, field, base)
 	register const char *var;
-	Tflag clr, set;
+	Tflag set, clr;
 	int field, base;
 {
 	register struct tbl *vp;

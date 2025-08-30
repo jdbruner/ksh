@@ -3,9 +3,9 @@
 /*
  * built-in Korn commands: c_*
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: c_ksh.c,v 1.15 2006/04/24 20:00:31 christos Exp $");
 #endif
 

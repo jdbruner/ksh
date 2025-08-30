@@ -3,9 +3,9 @@
 /*
  * dynamic hashed associative table for commands and variables
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: table.c,v 1.4 2003/06/23 11:39:04 agc Exp $");
 #endif
 

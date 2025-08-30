@@ -3,9 +3,9 @@
 /*
  * built-in Bourne commands
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: c_sh.c,v 1.12 2006/04/01 23:39:58 christos Exp $");
 #endif
 

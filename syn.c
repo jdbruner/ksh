@@ -3,9 +3,9 @@
 /*
  * shell parser (C version)
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: syn.c,v 1.9 2006/10/16 00:07:32 christos Exp $");
 #endif
 
@@ -44,12 +44,12 @@ static void	nesting_pop ARGS((struct nesting_state *saved));
 static int	assign_command ARGS((char *s));
 static int	inalias ARGS((struct source *s));
 #ifdef KSH
-static int	dbtestp_isa ARGS((Test_env *te, Test_meta meta));
-static const char *dbtestp_getopnd ARGS((Test_env *te, Test_op op,
+/*static*/ int	dbtestp_isa ARGS((Test_env *te, Test_meta meta));
+/*static*/ const char *dbtestp_getopnd ARGS((Test_env *te, Test_op op,
 					int do_eval));
-static int	dbtestp_eval ARGS((Test_env *te, Test_op op, const char *opnd1,
+/*static*/ int	dbtestp_eval ARGS((Test_env *te, Test_op op, const char *opnd1,
 				const char *opnd2, int do_eval));
-static void	dbtestp_error ARGS((Test_env *te, int offset, const char *msg));
+/*static*/ void	dbtestp_error ARGS((Test_env *te, int offset, const char *msg));
 #endif /* KSH */
 
 static	struct	op	*outtree; /* yyparse output */
@@ -683,13 +683,13 @@ const	struct tokeninfo {
 #endif /* KSH */
 	/* and some special cases... */
 	{ "newline",	'\n',	FALSE },
-	{ .name = NULL }
+	{ NULL }
 };
 
 void
 initkeywords()
 {
-	register struct tokeninfo const *tt;
+	register const struct tokeninfo *tt;
 	register struct tbl *p;
 
 	tinit(&keywords, APERM, 32); /* must be 2^n (currently 20 keywords) */
@@ -709,7 +709,7 @@ syntaxerr(what)
 {
 	char redir[6];	/* 2<<- is the longest redirection, I think */
 	const char *s;
-	struct tokeninfo const *tt;
+	const struct tokeninfo *tt;
 	int c;
 
 	if (!what)
@@ -860,7 +860,7 @@ const char db_gthan[] = { CHAR, '>', EOS };
  * it is.  Returns 0 if it is not, non-zero if it is (in the case of
  * TM_UNOP and TM_BINOP, the returned value is a Test_op).
  */
-static int
+/*static*/ int
 dbtestp_isa(te, meta)
 	Test_env *te;
 	Test_meta meta;
@@ -910,7 +910,7 @@ dbtestp_isa(te, meta)
 	return ret;
 }
 
-static const char *
+/*static*/ const char *
 dbtestp_getopnd(te, op, do_eval)
 	Test_env *te;
 	Test_op op;
@@ -927,7 +927,7 @@ dbtestp_getopnd(te, op, do_eval)
 	return null;
 }
 
-static int
+/*static*/ int
 dbtestp_eval(te, op, opnd1, opnd2, do_eval)
 	Test_env *te;
 	Test_op op;
@@ -938,7 +938,7 @@ dbtestp_eval(te, op, opnd1, opnd2, do_eval)
 	return 1;
 }
 
-static void
+/*static*/ void
 dbtestp_error(te, offset, msg)
 	Test_env *te;
 	int offset;

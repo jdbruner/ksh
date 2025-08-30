@@ -3,9 +3,9 @@
 /*
  * Miscellaneous functions
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: misc.c,v 1.12 2005/06/26 19:09:00 christos Exp $");
 #endif
 
@@ -122,7 +122,7 @@ str_nsave(s, n, ap)
 /* called from expand.h:XcheckN() to grow buffer */
 char *
 Xcheck_grow_(xsp, xp, more)
-	XString *xsp;
+	register XString *xsp;
 	char *xp;
 	int more;
 {
@@ -1340,7 +1340,7 @@ ksh_get_wd(buf, bsize)
 		b = buf;
 	else
 		b = alloc(MAXPATHLEN + 1, ATEMP);
-	if (!getcwd(b, MAXPATHLEN)) {
+	if (!getwd(b)) {
 		errno = EACCES;
 		if (b != buf)
 			afree(b, ATEMP);

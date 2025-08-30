@@ -3,9 +3,9 @@
 /*
  * shell buffered IO and formatted output
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: io.c,v 1.9 2005/06/26 19:09:00 christos Exp $");
 #endif
 

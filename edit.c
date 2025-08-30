@@ -4,9 +4,9 @@
  * Command line editing - common code
  *
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: edit.c,v 1.21 2007/01/28 20:20:25 cbiere Exp $");
 #endif
 
@@ -29,7 +29,7 @@ __RCSID("$NetBSD: edit.c,v 1.21 2007/01/28 20:20:25 cbiere Exp $");
 
 
 #if defined(TIOCGWINSZ)
-static RETSIGTYPE x_sigwinch ARGS((int sig));
+/*static*/ RETSIGTYPE x_sigwinch ARGS((int sig));
 static int got_sigwinch;
 static void check_sigwinch ARGS((void));
 #endif /* TIOCGWINSZ */
@@ -86,7 +86,7 @@ x_init()
 }
 
 #if defined(TIOCGWINSZ)
-static RETSIGTYPE
+/*static*/ RETSIGTYPE
 x_sigwinch(sig)
     	int sig;
 {
@@ -1065,7 +1065,7 @@ int
 x_escape(s, len, putbuf_func)
 	const char *s;
 	size_t len;
-	int putbuf_func ARGS((const char *s, size_t len));
+	int (*putbuf_func) ARGS((const char *s, size_t len));
 {
 	size_t add, wlen;
 	const char *ifs = str_val(local("IFS", 0));

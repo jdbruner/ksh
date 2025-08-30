@@ -3,9 +3,9 @@
 /*
  * execute command tree
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: exec.c,v 1.13 2006/04/24 19:58:20 christos Exp $");
 #endif
 
@@ -32,11 +32,11 @@ static int	herein ARGS((const char *, int));
 static char 	*do_selectargs ARGS((char **, bool_t));
 #endif /* KSH */
 #ifdef KSH
-static int	dbteste_isa ARGS((Test_env *, Test_meta));
-static const char *dbteste_getopnd ARGS((Test_env *, Test_op, int));
-static int	dbteste_eval ARGS((Test_env *, Test_op, const char *,
+/*static*/ int	dbteste_isa ARGS((Test_env *, Test_meta));
+/*static*/ const char *dbteste_getopnd ARGS((Test_env *, Test_op, int));
+/*static*/ int	dbteste_eval ARGS((Test_env *, Test_op, const char *,
 				const char *, int));
-static void	dbteste_error ARGS((Test_env *, int, const char *));
+/*static*/ void	dbteste_error ARGS((Test_env *, int, const char *));
 #endif /* KSH */
 #ifdef OS2
 static int	search_access1 ARGS((const char *, int, int *));
@@ -1547,8 +1547,10 @@ do_selectargs(ap, print_menu)
 	}
 }
 
+typedef char *const cstptr_t;	/* work around compiler bug */
+
 struct select_menu_info {
-	char	*const *args;
+	cstptr_t *args;		/* char	*const *args; */
 	int	arg_width;
 	int	num_width;
 } info;
@@ -1659,7 +1661,7 @@ extern const char db_close[];
  * it is.  Returns 0 if it is not, non-zero if it is (in the case of
  * TM_UNOP and TM_BINOP, the returned value is a Test_op).
  */
-static int
+/*static*/ int
 dbteste_isa(te, meta)
 	Test_env *te;
 	Test_meta meta;
@@ -1700,7 +1702,7 @@ dbteste_isa(te, meta)
 	return ret;
 }
 
-static const char *
+/*static*/ const char *
 dbteste_getopnd(te, op, do_eval)
 	Test_env *te;
 	Test_op op;
@@ -1724,7 +1726,7 @@ dbteste_getopnd(te, op, do_eval)
 	return s;
 }
 
-static int
+/*static*/ int
 dbteste_eval(te, op, opnd1, opnd2, do_eval)
 	Test_env *te;
 	Test_op op;
@@ -1735,7 +1737,7 @@ dbteste_eval(te, op, opnd1, opnd2, do_eval)
 	return test_eval(te, op, opnd1, opnd2, do_eval);
 }
 
-static void
+/*static*/ void
 dbteste_error(te, offset, msg)
 	Test_env *te;
 	int offset;

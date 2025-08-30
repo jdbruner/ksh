@@ -1,8 +1,7 @@
-#!/bin/sh
-#	$NetBSD: emacs-gen.sh,v 1.4 2008/10/25 22:18:15 apb Exp $
+#! /bin/sh
 
-: ${AWK:=awk}
-: ${SED:=sed}
+: ${AWK=awk}
+: ${SED=sed}
 
 case $# in
 1)	file=$1;;
@@ -24,8 +23,6 @@ cat << E_O_F || exit 1
  */
 E_O_F
 
-# Pass 1: print out lines before @START-FUNC-TAB@
-#	  and generate defines and function declarations,
 ${SED} -e '1,/@START-FUNC-TAB@/d' -e '/@END-FUNC-TAB@/,$d' < $file |
 	${AWK} 'BEGIN { nfunc = 0; }
 	    /^[	 ]*#/ {

@@ -28,8 +28,10 @@
 /*
  * area-based allocation built on malloc/free
  */
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: alloc.c,v 1.10 2007/12/12 22:55:42 lukem Exp $");
+#endif
 
 #include "sh.h"
 
@@ -39,16 +41,18 @@ struct link {
 };
 
 Area *
-ainit(Area *ap)
+ainit(ap)
+	register Area *ap;
 {
 	ap->freelist = NULL;
 	return ap;
 }
 
 void
-afreeall(Area *ap)
+afreeall(ap)
+	register Area *ap;
 {
-	struct link *l, *l2;
+	register struct link *l, *l2;
 
 	for (l = ap->freelist; l != NULL; l = l2) {
 		l2 = l->next;
@@ -62,9 +66,11 @@ afreeall(Area *ap)
 
 /* coverity[+alloc] */
 void *
-alloc(size_t size, Area *ap)
+alloc(size, ap)
+	size_t size;
+	register Area *ap;
 {
-	struct link *l;
+	register struct link *l;
 
 	l = malloc(sizeof(struct link) + size);
 	if (l == NULL)
@@ -81,9 +87,13 @@ alloc(size_t size, Area *ap)
 /* coverity[+alloc] */
 /* coverity[+free : arg-0] */
 void *
-aresize(void *ptr, size_t size, Area *ap)
+aresize(ptr, size, ap)
+	void *ptr;
+	size_t size;
+	register Area *ap;
 {
-	struct link *l, *l2, *lprev, *lnext;
+	register struct link *l, *l2;
+	struct link *lprev, *lnext;
 
 	if (ptr == NULL)
 		return alloc(size, ap);
@@ -107,9 +117,11 @@ aresize(void *ptr, size_t size, Area *ap)
 
 /* coverity[+free : arg-0] */
 void
-afree(void *ptr, Area *ap)
+afree(ptr, ap)
+	register void *ptr;
+	register Area *ap;
 {
-	struct link *l;
+	register struct link *l;
 
 	if (!ptr)
 		return;

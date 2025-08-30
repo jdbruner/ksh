@@ -4,8 +4,6 @@
  * Public Domain Bourne/Korn shell
  */
 
-/* $Id: sh.h,v 1.7 2005/06/26 19:09:00 christos Exp $ */
-
 #include "config.h"	/* system and option configuration info */
 
 #ifdef HAVE_PROTOTYPES
@@ -77,6 +75,9 @@ extern int setpgrp ARGS((void));
 # endif /* SYSV_PGRP */
 #endif /* HAVE_UNISTD_H */
 
+#ifdef HAVE_BSD_H
+#include <bsd/string.h>
+#else
 #ifdef HAVE_STRING_H
 # include <string.h>
 #else
@@ -84,6 +85,7 @@ extern int setpgrp ARGS((void));
 # define strchr index
 # define strrchr rindex
 #endif /* HAVE_STRING_H */
+#endif /* HAVE_BSD_H */
 #ifndef HAVE_STRSTR
 char *strstr ARGS((const char *s, const char *p));
 #endif /* HAVE_STRSTR */
@@ -91,6 +93,10 @@ char *strstr ARGS((const char *s, const char *p));
 int strcasecmp ARGS((const char *s1, const char *s2));
 int strncasecmp ARGS((const char *s1, const char *s2, int n));
 #endif /* HAVE_STRCASECMP */
+#ifndef HAVE_BSD_STRL
+size_t strlcpy ARGS((char *dst, const char *src, size_t dsize));
+size_t strlcat ARGS((char *dst, const char *src, size_t dsize));
+#endif
 
 #ifdef HAVE_MEMORY_H
 # include <memory.h>
@@ -241,6 +247,12 @@ extern int ksh_execve(char *cmd, char **args, char **env, int flags);
 extern int dup2 ARGS((int, int));
 #endif /* !HAVE_DUP2 */
 
+#ifndef HAVE_SYS_CDEFS_H
+#define __UNCONST(x)	(x)
+#define __UNVOLATILE(x)	(x)
+#endif
+
+
 /* Find a integer type that is at least 32 bits (or die) - SIZEOF_* defined
  * by autoconf (assumes an 8 bit byte, but I'm not concerned).
  * NOTE: INT32 may end up being more than 32 bits.
@@ -339,13 +351,18 @@ extern char *ksh_strrchr_dirsep(const char *path);
 # define ksh_strrchr_dirsep(p)  strrchr(p, DIRSEP)
 #endif
 
-typedef int bool_t;
 #define	FALSE	0
 #define	TRUE	1
 
 #define	NELEM(a) (sizeof(a) / sizeof((a)[0]))
 #define	sizeofN(type, n) (sizeof(type) * (n))
 #define	BIT(i)	(1<<(i))	/* define bit in flag */
+
+#if SIZEOF_INT < 4
+#define BIT32(i) (1L<<(i))	/* define bit in 32-bit flag */
+#else
+#define	BIT32(i) BIT(i)
+#endif
 
 /* Table flag type - needs > 16 and < 32 bits */
 typedef INT32 Tflag;

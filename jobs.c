@@ -23,9 +23,9 @@
  *	  process groups
  *	- NEED_PGRP_SYNC defined iff JOBS is defined - see comment below
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: jobs.c,v 1.9 2006/02/25 00:58:34 wiz Exp $");
 #endif
 
@@ -219,7 +219,7 @@ static int const	tt_sigs[] = { SIGTSTP, SIGTTIN, SIGTTOU };
 static void		j_set_async ARGS((Job *j));
 static void		j_startjob ARGS((Job *j));
 static int		j_waitj ARGS((Job *j, int flags, const char *where));
-static RETSIGTYPE	j_sigchld ARGS((int sig));
+/*static*/ RETSIGTYPE	j_sigchld ARGS((int sig));
 static void		j_print ARGS((Job *j, int how, struct shf *shf));
 static Job		*j_lookup ARGS((const char *cp, int *ecodep));
 static Job		*new_job ARGS((void));
@@ -1312,8 +1312,12 @@ j_waitj(j, flags, where)
 /* SIGCHLD handler to reap children and update job states
  *
  * If jobs are compiled in then this routine expects sigchld to be blocked.
+ *
+ * On 2.11BSD this needs to be non-static so that the thunk is registered
+ * as the signal handler function. Otherwise, a different overlay may be
+ * active when the signal comes in.
  */
-static RETSIGTYPE
+/*static*/ RETSIGTYPE
 j_sigchld(sig)
 	int	sig;
 {

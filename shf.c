@@ -3,9 +3,9 @@
 /*
  *  Shell file I/O routines
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: shf.c,v 1.7 2005/06/26 19:09:00 christos Exp $");
 #endif
 

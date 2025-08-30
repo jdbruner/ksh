@@ -138,9 +138,9 @@
  *	- sigaction(),sigsuspend(),Signal(),signal(): use handler_t typedef
  *	  instead of explicit type.
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: sigact.c,v 1.4 2003/06/23 11:39:03 agc Exp $");
 #endif
 

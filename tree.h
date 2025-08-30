@@ -4,8 +4,6 @@
  * command trees for compile/execute
  */
 
-/* $Id: tree.h,v 1.4 2004/07/07 19:20:09 mycroft Exp $ */
-
 #define	NOBLOCK	((struct op *)NULL)
 #define	NOWORD	((char *)NULL)
 #define	NOWORDS	((char **)NULL)

@@ -3,9 +3,9 @@
 /*
  * value of $KSH_VERSION (or $SH_VERSION)
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: version.c,v 1.5 2005/06/26 19:09:00 christos Exp $");
 #endif
 

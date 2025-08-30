@@ -1,7 +1,7 @@
 /*	$NetBSD: path.c,v 1.7 2005/06/26 19:09:00 christos Exp $	*/
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: path.c,v 1.7 2005/06/26 19:09:00 christos Exp $");
 #endif
 

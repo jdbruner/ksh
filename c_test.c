@@ -8,9 +8,9 @@
  * modified by Michael Rendell to add Korn's [[ .. ]] expressions.
  * modified by J.T. Conklin to add POSIX compatibility.
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: c_test.c,v 1.6 2005/06/26 19:09:00 christos Exp $");
 #endif
 
@@ -99,11 +99,11 @@ static int	test_oexpr ARGS((Test_env *, int));
 static int	test_aexpr ARGS((Test_env *, int));
 static int	test_nexpr ARGS((Test_env *, int));
 static int	test_primary ARGS((Test_env *, int));
-static int	ptest_isa ARGS((Test_env *, Test_meta));
-static const char *ptest_getopnd ARGS((Test_env *, Test_op, int));
-static int	ptest_eval ARGS((Test_env *, Test_op, const char *,
+/*static*/ int	ptest_isa ARGS((Test_env *, Test_meta));
+/*static*/ const char *ptest_getopnd ARGS((Test_env *, Test_op, int));
+/*static*/ int	ptest_eval ARGS((Test_env *, Test_op, const char *,
 				const char *, int));
-static void	ptest_error ARGS((Test_env *, int, const char *));
+/*static*/ void	ptest_error ARGS((Test_env *, int, const char *));
 
 int
 c_test(wp)
@@ -599,7 +599,7 @@ test_primary(te, do_eval)
  * it is.  Returns 0 if it is not, non-zero if it is (in the case of
  * TM_UNOP and TM_BINOP, the returned value is a Test_op).
  */
-static int
+/*static*/ int
 ptest_isa(te, meta)
 	Test_env *te;
 	Test_meta meta;
@@ -627,7 +627,7 @@ ptest_isa(te, meta)
 	return ret;
 }
 
-static const char *
+/*static*/ const char *
 ptest_getopnd(te, op, do_eval)
 	Test_env *te;
 	Test_op op;
@@ -638,7 +638,7 @@ ptest_getopnd(te, op, do_eval)
 	return *te->pos.wp++;
 }
 
-static int
+/*static*/ int
 ptest_eval(te, op, opnd1, opnd2, do_eval)
 	Test_env *te;
 	Test_op op;
@@ -649,7 +649,7 @@ ptest_eval(te, op, opnd1, opnd2, do_eval)
 	return test_eval(te, op, opnd1, opnd2, do_eval);
 }
 
-static void
+/*static*/ void
 ptest_error(te, offset, msg)
 	Test_env *te;
 	int offset;

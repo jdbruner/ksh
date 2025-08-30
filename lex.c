@@ -3,9 +3,9 @@
 /*
  * lexical analysis and source input
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: lex.c,v 1.13 2008/10/27 19:52:28 apb Exp $");
 #endif
 
@@ -341,20 +341,22 @@ yylex(cf)
 				 * posix mode was not in effect.
 				 */
 				statep->ls_sbquote.indquotes = 0;
-				Lex_state *s = statep;
-				Lex_state *base = state_info.base;
-				while (1) {
-					for (; s != base; s--) {
-						if (s->ls_state == SDQUOTE) {
-							statep->ls_sbquote.indquotes = 1;
-							break;
+				{
+					Lex_state *s = statep;
+					Lex_state *base = state_info.base;
+					while (1) {
+						for (; s != base; s--) {
+							if (s->ls_state == SDQUOTE) {
+								statep->ls_sbquote.indquotes = 1;
+								break;
+							}
 						}
+						if (s != base)
+							break;
+						if (!(s = s->ls_info.base))
+							break;
+						base = s-- - STATE_BSIZE;
 					}
-					if (s != base)
-						break;
-					if (!(s = s->ls_info.base))
-						break;
-					base = s-- - STATE_BSIZE;
 				}
 				break;
 			  default:

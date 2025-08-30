@@ -1,6 +1,5 @@
-#!/bin/sh
-
-: ${AWK:=awk}
+#! /bin/sh
+: ${AWK=awk}
 
 verbose=no
 
@@ -29,9 +28,6 @@ if [ ! -r "$man" ] ; then
 fi
 
 
-#
-# Now generate the appropriate man page...
-#
 [ $verbose = yes ] && echo "$0: Generating $which man page (0=sh,1=ksh)..." 1>&2
 
 ${AWK} 'BEGIN { ksh = '$which'; pr = 1 }

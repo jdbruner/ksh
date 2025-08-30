@@ -3,10 +3,9 @@
 /*
  * startup, main loop, environments and error handling
  */
-#include <sys/cdefs.h>
-#include <locale.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: main.c,v 1.14 2007/06/24 18:00:49 christos Exp $");
 #endif
 
@@ -14,6 +13,9 @@ __RCSID("$NetBSD: main.c,v 1.14 2007/06/24 18:00:49 christos Exp $");
 #define	EXTERN				/* define EXTERNs in sh.h */
 
 #include "sh.h"
+#ifdef HAVE_LOCALE_H
+#include <locale.h>
+#endif
 #include "ksh_stat.h"
 #include "ksh_time.h"
 
@@ -448,7 +450,9 @@ main(int argc, char *argv[])
 	} else
 		Flag(FTRACKALL) = 1;	/* set after ENV */
 
+#ifdef HAVE_LOCALE_H
 	setlocale(LC_CTYPE, "");
+#endif
 	shell(s, TRUE);	/* doesn't return */
 	return 0;
 }

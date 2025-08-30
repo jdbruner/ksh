@@ -6,13 +6,12 @@
 /*
  * Shell file I/O routines
  */
-/* $Id: shf.h,v 1.3 1999/10/20 15:10:00 hubertf Exp $ */
 
 #define SHF_BSIZE	512
 
 #define shf_fileno(shf)	((shf)->fd)
 #define shf_setfileno(shf,nfd)	((shf)->fd = (nfd))
-#define shf_getc(shf) ((shf)->rnleft > 0 ? (shf)->rnleft--, *(shf)->rp++ : \
+#define shf_getc(shf) ((shf)->rnleft > 0 ? ((shf)->rnleft--, *(shf)->rp++) : \
 			shf_getchar(shf))
 #define shf_putc(c, shf)	((shf)->wnleft == 0 ? shf_putchar((c), (shf)) \
 					: ((shf)->wnleft--, *(shf)->wp++ = (c)))

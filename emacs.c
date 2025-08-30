@@ -7,12 +7,11 @@
  *  modified by Doug Kingston, Doug Gwyn, and Lou Salkind
  *  adapted to PD ksh by Eric Gisin
  */
-#include <sys/cdefs.h>
 
-#ifndef lint
+#if !defined(lint) && defined(HAVE_SYS_CDEFS_H)
+#include <sys/cdefs.h>
 __RCSID("$NetBSD: emacs.c,v 1.31 2006/05/13 21:58:51 christos Exp $");
 #endif
-
 
 #include "config.h"
 #ifdef EMACS
@@ -21,7 +20,9 @@ __RCSID("$NetBSD: emacs.c,v 1.31 2006/05/13 21:58:51 christos Exp $");
 #include "ksh_stat.h"
 #include "ksh_dir.h"
 #include <ctype.h>
+#ifdef HAVE_LOCALE_H
 #include <locale.h>
+#endif
 #include "edit.h"
 
 static	Area	aedit;
@@ -158,14 +159,14 @@ static int	x_emacs_putbuf	ARGS((const char *s, size_t len));
 
 
 /* The lines between START-FUNC-TAB .. END-FUNC-TAB are run through a
- * script (emacs-gen.sh) that generates emacs.out which contains:
+ * script (emacs-gen.sh) that generates emacs.gen.out which contains:
  *	- function declarations for x_* functions
  *	- defines of the form XFUNC_<name> where <name> is function
  *	  name, sans leading x_.
  * Note that the script treats #ifdef and { 0, 0, 0} specially - use with
  * caution.
  */
-#include "emacs.out"
+#include "emacs.gen.out"
 static const struct x_ftab x_ftab[] = {
 /* @START-FUNC-TAB@ */
 	{ x_abort,		"abort",			0 },
@@ -242,7 +243,7 @@ static const struct x_ftab x_ftab[] = {
 /* @END-FUNC-TAB@ */
     };
 
-static	struct x_defbindings const x_defbindings[] = {
+static	const struct x_defbindings x_defbindings[] = {
 	{ XFUNC_del_back,		0, CTRL('?') },
 	{ XFUNC_del_bword,		1, CTRL('?') },
 	{ XFUNC_eot_del,		0, CTRL('D') },
@@ -332,7 +333,7 @@ static	struct x_defbindings const x_defbindings[] = {
 	{ XFUNC_prev_com,		2,	'A'  },
 	{ XFUNC_next_com,		2,	'B'  },
 	{ XFUNC_mv_forw,		2,	'C'  },
-	{ XFUNC_mv_back,		2,	'D'  },
+	{ XFUNC_mv_back,		2,	'D'  }
 };
 
 int
@@ -1540,6 +1541,7 @@ x_init_emacs()
 		for (j = 0; j < X_TABSZ; j++)
 			x_atab[i][j] = NULL;
 
+#ifdef HAVE_LOCALE_H
 	/* Determine if we can translate meta key or use 8-bit AscII 
 	 * XXX - It would be nice if there was a locale attribute to
 	 * determine if the locale is 7-bit or not.
@@ -1547,6 +1549,7 @@ x_init_emacs()
 	locale = setlocale(LC_CTYPE, NULL);
 	if (locale == NULL || !strcmp(locale, "C") || !strcmp(locale, "POSIX"))
 		Flag(FEMACSUSEMETA) = 0;
+#endif
 }
 
 static void bind_if_not_bound(int p, int k, int func);
