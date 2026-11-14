@@ -61,7 +61,7 @@
 /* #undef _POSIX_SOURCE */
 
 /* Define as the return type of signal handlers (int or void).  */
-#define RETSIGTYPE int
+#define RETSIGTYPE void
 
 /* Define if the `S_IS*' macros in <sys/stat.h> do not work properly.  */
 /* #undef STAT_MACROS_BROKEN */
